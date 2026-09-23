@@ -10,7 +10,7 @@
 `pg_slow` is a tiny, production-friendly PostgreSQL extension. One function. No agents. No dashboards. Just a ranked view of what is spending your database time right now — powered by [`pg_stat_statements`](https://www.postgresql.org/docs/current/pgstatstatements.html).
 
 <p align="center">
-  <img src="assets/screenshot-output.svg" alt="Example: SELECT * FROM pg_slow(5) ranked by total execution time with CRITICAL, HIGH, and LOW impact scores" width="920" />
+  <img src="assets/screenshot-output.png" alt="Example: SELECT * FROM pg_slow(5) ranked by total execution time with CRITICAL, HIGH, and LOW impact scores" width="920" />
 </p>
 
 ## What it does
@@ -119,10 +119,6 @@ queryid | calls | total_exec_time_ms | mean_exec_time_ms | time_share_percent | 
 Notice the third row has a high **mean** time but a low **share**. `pg_slow` still ranks by total time first — rare expensive queries matter less than frequent ones that burn most of the budget.
 
 ## How ranking works
-
-<p align="center">
-  <img src="assets/ranking.svg" alt="Impact score thresholds: CRITICAL ≥25%, HIGH ≥10%, MEDIUM ≥3%, LOW &lt;3%" width="920" />
-</p>
 
 1. Filter `pg_stat_statements` to rows with `calls >= min_calls`.
 2. Rank by `total_exec_time` **descending** (never primarily by average latency).
