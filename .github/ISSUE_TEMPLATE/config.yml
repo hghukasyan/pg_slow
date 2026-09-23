@@ -1,0 +1,5 @@
+blank_issues_enabled: true
+contact_links:
+  - name: PostgreSQL docs — pg_stat_statements
+    url: https://www.postgresql.org/docs/current/pgstatstatements.html
+    about: Background on the statistics source pg_slow reads

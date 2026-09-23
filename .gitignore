@@ -1,0 +1,12 @@
+results/
+*.o
+*.so
+*.bc
+*.dylib
+.deps/
+tmp_check/
+tmp_pgdata/
+regression.diffs
+regression.out
+log/
+.DS_Store

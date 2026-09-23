@@ -1,0 +1,29 @@
+{
+   "name": "pg_slow",
+   "abstract": "Show which PostgreSQL queries consume the most total execution time",
+   "description": "Tiny read-only SQL utility that ranks pg_stat_statements by total_exec_time, with time share and impact labels.",
+   "version": "0.1.0",
+   "maintainer": ["pg_slow contributors"],
+   "license": "apache_2_0",
+   "release_status": "stable",
+   "provides": {
+      "pg_slow": {
+         "file": "sql/pg_slow--0.1.0.sql",
+         "version": "0.1.0",
+         "abstract": "Rank statements by total execution time"
+      }
+   },
+   "prereqs": {
+      "runtime": {
+         "requires": {
+            "PostgreSQL": "14.0.0",
+            "pg_stat_statements": "0"
+         }
+      }
+   },
+   "meta-spec": {
+      "version": "1.0.0",
+      "url": "https://pgxn.org/meta/spec.txt"
+   },
+   "tags": ["monitoring", "performance", "pg_stat_statements", "utility"]
+}

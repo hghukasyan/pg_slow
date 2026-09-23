@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="920" height="420" viewBox="0 0 920 420" role="img" aria-label="pg_slow example output in psql">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#161b22"/>
+      <stop offset="100%" stop-color="#0d1117"/>
+    </linearGradient>
+  </defs>
+  <rect width="920" height="420" rx="12" fill="#010409"/>
+  <rect x="10" y="10" width="900" height="400" rx="10" fill="url(#bg)" stroke="#30363d"/>
+  <circle cx="36" cy="36" r="6" fill="#ff5f56"/>
+  <circle cx="56" cy="36" r="6" fill="#ffbd2e"/>
+  <circle cx="76" cy="36" r="6" fill="#27c93f"/>
+  <text x="460" y="40" text-anchor="middle" fill="#8b949e" font-family="ui-sans-serif, system-ui, sans-serif" font-size="13">psql  pg_slow</text>
+  <text x="36" y="84" fill="#7ee787" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="15">postgres=#</text>
+  <text x="130" y="84" fill="#e6edf3" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="15">SELECT * FROM pg_slow(5);</text>
+
+  <text x="36" y="130" fill="#8b949e" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="13"> queryid  | calls | total_ms | mean_ms | share% | impact</text>
+  <text x="36" y="150" fill="#30363d" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="13">---------+-------+----------+---------+--------+----------</text>
+
+  <text x="36" y="178" fill="#e6edf3" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="13"> 1822911 | 18221 |  7543210 |   414.0 |   38.4 | </text>
+  <text x="620" y="178" fill="#ff7b72" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="13" font-weight="700">CRITICAL</text>
+
+  <text x="36" y="208" fill="#e6edf3" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="13"> 9918204 |   912 |   804221 |   881.8 |   12.7 | </text>
+  <text x="620" y="208" fill="#d29922" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="13" font-weight="700">HIGH</text>
+
+  <text x="36" y="238" fill="#e6edf3" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="13"> 2837102 |    44 |   360800 |  8200.0 |    2.1 | </text>
+  <text x="620" y="238" fill="#3fb950" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="13" font-weight="700">LOW</text>
+
+  <text x="36" y="280" fill="#8b949e" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="13">(3 rows)</text>
+
+  <text x="36" y="330" fill="#8b949e" font-family="ui-sans-serif, system-ui, sans-serif" font-size="13">Ranked by total execution time  not by average latency.</text>
+  <text x="36" y="356" fill="#8b949e" font-family="ui-sans-serif, system-ui, sans-serif" font-size="13">impact_score = share of observed time, not this query is bad.</text>
+</svg>

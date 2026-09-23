@@ -1,0 +1,27 @@
+name: Bug report
+description: Report unexpected pg_slow behavior
+title: "[bug] "
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: Thanks for the report. Please include PostgreSQL and extension versions.
+  - type: textarea
+    id: versions
+    attributes:
+      label: Versions
+      description: Paste the output of these commands
+      render: sql
+      placeholder: |
+        SELECT version();
+        SELECT extversion FROM pg_extension WHERE extname = 'pg_slow';
+        SHOW shared_preload_libraries;
+    validations:
+      required: true
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened?
+      description: Steps to reproduce, SQL you ran, and actual vs expected result
+    validations:
+      required: true

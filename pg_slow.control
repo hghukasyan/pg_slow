@@ -1,0 +1,6 @@
+# pg_slow extension
+comment = 'Show queries consuming the most PostgreSQL execution time'
+default_version = '0.1.0'
+relocatable = true
+requires = 'pg_stat_statements'
+superuser = false

@@ -1,0 +1,53 @@
+name: CI
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+
+jobs:
+  installcheck:
+    name: PostgreSQL ${{ matrix.pg }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        pg: ["14", "15", "16", "17"]
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install PostgreSQL ${{ matrix.pg }}
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y postgresql-${{ matrix.pg }} postgresql-server-dev-${{ matrix.pg }}
+
+      - name: Build and install extension
+        run: |
+          export PATH="/usr/lib/postgresql/${{ matrix.pg }}/bin:$PATH"
+          make PG_CONFIG="/usr/lib/postgresql/${{ matrix.pg }}/bin/pg_config"
+          sudo make install PG_CONFIG="/usr/lib/postgresql/${{ matrix.pg }}/bin/pg_config"
+
+      - name: Configure and start PostgreSQL
+        run: |
+          export PGDATA="$HOME/pgdata-${{ matrix.pg }}"
+          export PATH="/usr/lib/postgresql/${{ matrix.pg }}/bin:$PATH"
+          initdb -D "$PGDATA" --no-locale -E UTF8
+          echo "shared_preload_libraries = 'pg_stat_statements'" >> "$PGDATA/postgresql.conf"
+          echo "unix_socket_directories = '$PGDATA'" >> "$PGDATA/postgresql.conf"
+          echo "port = 55432" >> "$PGDATA/postgresql.conf"
+          pg_ctl -D "$PGDATA" -l "$PGDATA/logfile" start
+          createdb -h "$PGDATA" -p 55432 contrib_regression
+          echo "PGDATA=$PGDATA" >> "$GITHUB_ENV"
+          echo "PATH=/usr/lib/postgresql/${{ matrix.pg }}/bin:$PATH" >> "$GITHUB_ENV"
+
+      - name: Run installcheck
+        run: |
+          make installcheck PGHOST="$PGDATA" PGPORT=55432 PG_CONFIG="/usr/lib/postgresql/${{ matrix.pg }}/bin/pg_config"
+
+      - name: Show regression diffs on failure
+        if: failure()
+        run: |
+          cat regression.diffs 2>/dev/null || true
+          cat results/pg_slow.out 2>/dev/null || true
+          cat "$PGDATA/logfile" 2>/dev/null || true
